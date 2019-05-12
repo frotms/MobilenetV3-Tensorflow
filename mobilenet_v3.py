@@ -219,7 +219,7 @@ def mobilenet_v3_small(inputs, classes_num, multiplier=1.0, is_training=True, re
 
         x = _conv2d_layer(x, filters_num=classes_num, kernel_size=1, name="conv3", use_bias=True, strides=1)
         x = hard_swish(x)
-        logits = tf.reshape(x, shape=[int(x.get_shape()[1]), -1])
+        logits = tf.layers.flatten(x)
         logits = tf.identity(logits, name='output')
         end_points["Logits_out"] = logits
 
@@ -286,7 +286,7 @@ def mobilenet_v3_large(inputs, classes_num, multiplier=1.0, is_training=True, re
         end_points["conv2_out_1x1"] = x
 
         x = _conv2d_layer(x, filters_num=classes_num, kernel_size=1, name="conv3", use_bias=True, strides=1)
-        logits = tf.reshape(x, shape=[int(x.get_shape()[1]), -1])
+        logits = tf.layers.flatten(x)
         logits = tf.identity(logits, name='output')
         end_points["Logits_out"] = logits
 
