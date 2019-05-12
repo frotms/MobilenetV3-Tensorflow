@@ -158,7 +158,7 @@ def mobilenet_v3_block(input, k_s, expansion_ratio, output_dim, stride, name, is
             net += input
             net = tf.identity(net, name='block_output')
 
-    return net
+    return net, end_points
 
 
 def mobilenet_v3_small(inputs, classes_num, multiplier=1.0, is_training=True, reuse=None):
@@ -290,21 +290,7 @@ def mobilenet_v3_large(inputs, classes_num, multiplier=1.0, is_training=True, re
         logits = tf.identity(logits, name='output')
         end_points["Logits_out"] = logits
 
-    return logits
-
-
-def mobilenet_v3(net, classes_num, is_training=True, arch_size=None, reuse=None):
-    """
-
-    :param net:
-    :param classes_num:
-    :param is_training:
-    :param arch_size: arch_size为None或者0时为mobilenet_v3_large，否则为mobilenet_v3_small
-    :param reuse:
-    :return:
-    """
-    _mobilenet_v3 = mobilenet_v3_large if (arch_size is None) or (arch_size == 0) else mobilenet_v3_small
-    return _mobilenet_v3(net, classes_num, is_training=is_training, reuse=reuse)
+    return logits, end_points
 
 
 if __name__ == "__main__":
