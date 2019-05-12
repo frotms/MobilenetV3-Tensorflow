@@ -8,6 +8,6 @@ This is a multi-GPUs Tensorflow implementation of MobileNetV3 architecture as de
 # usage
     from mobilenet_v3 import mobilenet_v3_large, mobilenetv3_small
     
-    model = mobilenet_v3_large(input_test, num_classes, multiplier=1.0, is_training=True, reuse=None)
+    model = mobilenet_v3_large(input, num_classes, multiplier=1.0, is_training=True, reuse=None)
     
-    model = mobilenet_v3_small(input_test, num_classes, multiplier=1.0, is_training=True, reuse=None)
+    model = mobilenet_v3_small(input, num_classes, multiplier=1.0, is_training=True, reuse=None)
