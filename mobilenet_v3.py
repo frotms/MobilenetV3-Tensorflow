@@ -158,7 +158,7 @@ def mobilenet_v3_block(input, k_s, expansion_ratio, output_dim, stride, name, is
             net += input
             net = tf.identity(net, name='block_output')
 
-    return net, end_points
+    return net
 
 
 def mobilenet_v3_small(inputs, classes_num, multiplier=1.0, is_training=True, reuse=None):
@@ -223,7 +223,7 @@ def mobilenet_v3_small(inputs, classes_num, multiplier=1.0, is_training=True, re
         logits = tf.identity(logits, name='output')
         end_points["Logits_out"] = logits
 
-    return logits
+    return logits, end_points
 
 
 def mobilenet_v3_large(inputs, classes_num, multiplier=1.0, is_training=True, reuse=None):
