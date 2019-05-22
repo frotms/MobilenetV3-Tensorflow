@@ -207,18 +207,17 @@ def mobilenet_v3_small(inputs, classes_num, multiplier=1.0, is_training=True, re
         end_points["conv1_out_1x1"] = x
 
         x = _global_avg(x, pool_size=x.get_shape()[1:-1], strides=1)
-        x = hard_swish(x)
+        #x = hard_swish(x)
         end_points["global_pool"] = x
 
     with tf.variable_scope('Logits_out', reuse=reuse):
         conv2_in = _make_divisible(576 * multiplier)
         conv2_out = _make_divisible(1280 * multiplier)
-        x = _conv_bn_relu(x, filters_num=conv2_out, kernel_size=1, name="conv2", use_bias=True, strides=1,
-                          is_training=True, activation=hard_swish)
+        x = _conv2d_layer(x, filters_num=conv2_out, kernel_size=1, name="conv2", use_bias=True, strides=1)
+        x = hard_swish(x)
         end_points["conv2_out_1x1"] = x
 
-        x = _conv_bn_relu(x, filters_num=classes_num, kernel_size=1, name="conv3", use_bias=True, strides=1,
-                          is_training=True, activation=hard_swish)
+        x = _conv2d_layer(x, filters_num=classes_num, kernel_size=1, name="conv3", use_bias=True, strides=1)
         logits = tf.layers.flatten(x)
         logits = tf.identity(logits, name='output')
         end_points["Logits_out"] = logits
@@ -275,7 +274,7 @@ def mobilenet_v3_large(inputs, classes_num, multiplier=1.0, is_training=True, re
         end_points["conv1_out_1x1"] = x
 
         x = _global_avg(x, pool_size=x.get_shape()[1:-1], strides=1)
-        x = hard_swish(x)
+        #x = hard_swish(x)
         end_points["global_pool"] = x
 
     with tf.variable_scope('Logits_out', reuse=reuse):
